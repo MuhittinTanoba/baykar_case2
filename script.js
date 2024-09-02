@@ -78,6 +78,8 @@ function startTimer() {
 }
 
 function displayResults() {
+    clearInterval(timer);
+    timerElement.innerHTML = '';
     questionContainer.style.display = 'none';
     resultContainer.style.display = 'block';
     answers.forEach(answer => {
