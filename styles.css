@@ -39,7 +39,26 @@ body {
 .option:hover {
     background: #c0c0c0;
 }
+
 #timer {
     font-size: 24px;
     font-weight: bold;
+}
+
+#result-container {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
 }

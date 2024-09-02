@@ -1,10 +1,13 @@
 const questionContainer = document.getElementById('question-container');
 const optionsContainer = document.getElementById('options-container');
+const timerElement = document.getElementById('timer');
 
 let questions = [];
 let currentQuestionIndex = 0;
 let answers = [];
-
+let timer;
+let timeLeft = 30;
+let isClickable = false;
 
 async function fetchQuestions() {
     try {
@@ -39,6 +42,41 @@ function displayQuestion() {
         optionsContainer.appendChild(optionElement);
     });
 
+    startTimer();
 }
+
+function startTimer() {
+    timeLeft = 30;
+    isClickable = false;
+    timerElement.textContent = timeLeft;
+    clearInterval(timer);
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = timeLeft;
+        if (timeLeft <= 20) {
+            isClickable = true;
+        }
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            currentQuestionIndex++;
+            displayQuestion();
+        }
+    }, 1000);
+}
+
+
+function displayResults() {
+    questionContainer.style.display = 'none';
+    resultContainer.style.display = 'block';
+    answers.forEach(answer => {
+        const row = resultTableBody.insertRow();
+        const questionCell = row.insertCell(0);
+        const answerCell = row.insertCell(1);
+        questionCell.textContent = answer.question;
+        answerCell.textContent = answer.answer;
+    });
+}
+
+
 
 fetchQuestions();
