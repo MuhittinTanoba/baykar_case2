@@ -1,6 +1,8 @@
 const questionContainer = document.getElementById('question-container');
 const optionsContainer = document.getElementById('options-container');
 const timerElement = document.getElementById('timer');
+const resultContainer = document.getElementById('result-container');
+const resultTableBody = document.getElementById('result-table').getElementsByTagName('tbody')[0];
 
 let questions = [];
 let currentQuestionIndex = 0;
@@ -38,11 +40,22 @@ function displayQuestion() {
         const optionWord = String.fromCharCode(65 + index);
         optionElement.className = 'option';
         optionElement.textContent = `${optionWord}-${option}`;
-
+        optionElement.onclick = () => handleOptionClick(option);
         optionsContainer.appendChild(optionElement);
     });
-
+    
     startTimer();
+}
+
+function handleOptionClick(selectedOption) {
+    if (isClickable) {
+        answers.push({
+            question: questions[currentQuestionIndex].question,
+            answer: selectedOption
+        });
+        currentQuestionIndex++;
+        displayQuestion();
+    }
 }
 
 function startTimer() {
@@ -53,7 +66,7 @@ function startTimer() {
     timer = setInterval(() => {
         timeLeft--;
         timerElement.textContent = timeLeft;
-        if (timeLeft <= 20) {
+        if (timeLeft <= 29) {
             isClickable = true;
         }
         if (timeLeft <= 0) {
@@ -63,7 +76,6 @@ function startTimer() {
         }
     }, 1000);
 }
-
 
 function displayResults() {
     questionContainer.style.display = 'none';
@@ -76,7 +88,5 @@ function displayResults() {
         answerCell.textContent = answer.answer;
     });
 }
-
-
 
 fetchQuestions();
