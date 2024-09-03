@@ -4,6 +4,8 @@ const timerElement = document.getElementById('timer');
 const resultContainer = document.getElementById('result-container');
 const resultTableBody = document.getElementById('result-table').getElementsByTagName('tbody')[0];
 const progressBarFill = document.getElementById('progress-bar-fill');
+const questionCountElement = document.getElementById('question-count');
+const container = document.getElementById('container');
 
 let questions = [];
 let currentQuestionIndex = 0;
@@ -33,6 +35,7 @@ function displayQuestion() {
         return;
     }
     
+    questionCountElement.textContent = `Question ${currentQuestionIndex + 1}/${questions.length}`;
     const question = questions[currentQuestionIndex];
     document.getElementById('question-text').textContent = question.question;
     optionsContainer.innerHTML = '';
@@ -40,7 +43,7 @@ function displayQuestion() {
         const optionElement = document.createElement('div');
         const optionWord = String.fromCharCode(65 + index);
         optionElement.className = 'option';
-        optionElement.textContent = `${optionWord}-${option}`;
+        optionElement.textContent = `${option}`;
         optionElement.onclick = () => handleOptionClick(option);
         optionsContainer.appendChild(optionElement);
     });
@@ -83,9 +86,10 @@ function startTimer() {
 function displayResults() {
     clearInterval(timer);
     progressBarFill.style.transform = 'scaleX(0)';
-    timerElement.innerHTML = '';
+    timerElement.innerHTML = 'Quiz is over!';
     questionContainer.style.display = 'none';
     resultContainer.style.display = 'block';
+    container.style.marginTop = '30%';
     answers.forEach(answer => {
         const row = resultTableBody.insertRow();
         const questionCell = row.insertCell(0);

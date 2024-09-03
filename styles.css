@@ -1,5 +1,4 @@
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
@@ -7,33 +6,53 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #f4f4f4;
+    color: white;
+}
+
+#app-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%; 
+    margin-top: "90px";
 }
 
 #quiz-container {
-    width: 80%;
+    border: 2px solid red;
+    border-radius: 100%;
+    width: 100%;
     max-width: 600px;
-    background: #fff;
+    background: #f84c21;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #question-text {
     font-size: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 10%;
+    text-align: center;
 }
 
 #options-container {
     margin-bottom: 20px;
+    padding-left: 25%;
+    padding-right: 25%;
 }
 
 .option {
     display: block;
     margin: 5px 0;
     padding: 10px;
-    background: #e0e0e0;
+    background: #d42f05;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .option:hover {
@@ -43,11 +62,13 @@ body {
 #timer {
     font-size: 24px;
     font-weight: bold;
-    text-align: right;
+    text-align: center;
+    color: black;
 }
 
 #result-container {
-    margin-top: 20px;
+    width: 100%;
+    text-align: center;
 }
 
 table {
@@ -64,21 +85,43 @@ th, td {
     text-align: left;
 }
 
-
 #progress-bar {
     width: 100%;
-    height: 10px;
+    height: 20px;
     background-color: #e0e0e0;
-    border-radius: 5px;
+    border-radius: 15px;
     overflow: hidden;
     margin-top: 10px;
 }
 
 #progress-bar-fill {
     height: 100%;
-    background-color: #76c7c0;
+    background: linear-gradient(to right, #f84c21, #ecbd99);
     width: 100%;
     transform: scaleX(1);
     transform-origin: left;
     transition: transform 1s linear;
+}
+
+#timer-container {
+    margin-bottom: 10%;
+    width: 100%;
+    text-align: center;
+}
+
+#question-container {
+    text-align: center;
+    width: 100%;
+}
+
+.roboto-regular {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.roboto-bold {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }

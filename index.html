@@ -5,32 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz App</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="quiz-container">
-        <div id="timer-container">
-            <p id="timer">30</p>
-            <div id="progress-bar">
-                <div id="progress-bar-fill"></div>
+    <div id="container">
+        <div class="app-container">
+            <div id="timer-container">
+                <p id="timer" class="roboto-regular">30</p>
+                <div id="progress-bar">
+                    <div id="progress-bar-fill"></div>
+                </div>
             </div>
-        </div>
-        <div id="question-container">
-            <p id="question-text"></p>
-            <div id="options-container"></div>
-        </div>
-        <div id="result-container" style="display: none;">
-            <h2>Test Sonuçları</h2>
-            <table id="result-table">
-                <thead>
-                    <tr>
-                        <th>Soru</th>
-                        <th>Yanıt</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+    
+            <div id="quiz-container">
+                <div id="question-container">
+                    <h2 id="question-count" class="roboto-bold"></h2>
+                    <p id="question-text" class="roboto-regular"></p>
+                    <div id="options-container" class="roboto-regular"></div>
+                </div>
+                <div id="result-container" style="display: none;">
+                    <h2 class="roboto-bold" style="margin-bottom: 6%;">Test Sonuçları</h2>
+                    <table id="result-table">
+                        <thead>
+                            <tr>
+                                <th class="roboto-bold">Soru</th>
+                                <th class="roboto-bold">Yanıt</th>
+                            </tr>
+                        </thead>
+                        <tbody class="roboto-regular"></tbody>
+                    </table>
+                </div>
+            </div>
+        
         </div>
     </div>
+
 
     <script src="script.js"></script>
 </body>
