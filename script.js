@@ -39,16 +39,56 @@ function displayQuestion() {
     const question = questions[currentQuestionIndex];
     document.getElementById('question-text').textContent = question.question;
     optionsContainer.innerHTML = '';
-    question.options.forEach((option,index) => {
+    question.options.forEach((option, index) => {
         const optionElement = document.createElement('div');
-        const optionWord = String.fromCharCode(65 + index);
+        const optionLetter = String.fromCharCode(65 + index);
         optionElement.className = 'option';
-        optionElement.textContent = `${option}`;
-        optionElement.onclick = () => handleOptionClick(option);
+        optionElement.innerHTML = `<div class="option-letter">${optionLetter}</div> <div class="option-text">${option}</div>`;
+        optionElement.onclick = () => {
+            if (isClickable) {
+                handleOptionClick(option);
+            }
+        };
         optionsContainer.appendChild(optionElement);
     });
     
     startTimer();
+}
+
+function startTimer() {
+    timeLeft = 30;
+    isClickable = false;
+    timerElement.textContent = timeLeft;
+    progressBarFill.style.transform = 'scaleX(1)';
+    updateOptionStyles();
+    
+    clearInterval(timer);
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = timeLeft;
+        progressBarFill.style.transform = `scaleX(${timeLeft / 30})`;
+        
+        if (timeLeft <= 20) {
+            isClickable = true;
+        }
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            answers.push({
+                question: questions[currentQuestionIndex].question,
+                answer: "-"
+            });
+            currentQuestionIndex++;
+            displayQuestion();
+        }
+        updateOptionStyles();
+    }, 1000);
+}
+
+function updateOptionStyles() {
+    const options = document.querySelectorAll('.option');
+    options.forEach(option => {
+        option.className = `option ${isClickable ? 'option-clickable' : 'option-disabled'}`;
+    });
 }
 
 function handleOptionClick(selectedOption) {
@@ -62,34 +102,13 @@ function handleOptionClick(selectedOption) {
     }
 }
 
-function startTimer() {
-    timeLeft = 30;
-    isClickable = false;
-    timerElement.textContent = timeLeft;
-    progressBarFill.style.transform = 'scaleX(1)';
-    clearInterval(timer);
-    timer = setInterval(() => {
-        timeLeft--;
-        timerElement.textContent = timeLeft;
-        progressBarFill.style.transform = `scaleX(${timeLeft / 30})`;
-        if (timeLeft <= 29) {
-            isClickable = true;
-        }
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            currentQuestionIndex++;
-            displayQuestion();
-        }
-    }, 1000);
-}
-
 function displayResults() {
     clearInterval(timer);
     progressBarFill.style.transform = 'scaleX(0)';
     timerElement.innerHTML = 'Quiz is over!';
     questionContainer.style.display = 'none';
     resultContainer.style.display = 'block';
-    container.style.marginTop = '30%';
+    container.style.marginTop = '35%';
     answers.forEach(answer => {
         const row = resultTableBody.insertRow();
         const questionCell = row.insertCell(0);
