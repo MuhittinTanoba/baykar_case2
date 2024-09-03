@@ -3,6 +3,7 @@ const optionsContainer = document.getElementById('options-container');
 const timerElement = document.getElementById('timer');
 const resultContainer = document.getElementById('result-container');
 const resultTableBody = document.getElementById('result-table').getElementsByTagName('tbody')[0];
+const progressBarFill = document.getElementById('progress-bar-fill');
 
 let questions = [];
 let currentQuestionIndex = 0;
@@ -16,7 +17,7 @@ async function fetchQuestions() {
         const response = await fetch('https://jsonplaceholder.typicode.com/posts');
         const data = await response.json();
         questions = data.slice(0, 10).map(post => ({
-            question: post.title,
+            question: post.body,
             options: [post.body.slice(0, 10), post.body.slice(10, 20), post.body.slice(20, 30), post.body.slice(30, 40)],
             answer: post.body.slice(0, 10)
         }));
@@ -62,10 +63,12 @@ function startTimer() {
     timeLeft = 30;
     isClickable = false;
     timerElement.textContent = timeLeft;
+    progressBarFill.style.transform = 'scaleX(1)';
     clearInterval(timer);
     timer = setInterval(() => {
         timeLeft--;
         timerElement.textContent = timeLeft;
+        progressBarFill.style.transform = `scaleX(${timeLeft / 30})`;
         if (timeLeft <= 29) {
             isClickable = true;
         }
@@ -79,6 +82,7 @@ function startTimer() {
 
 function displayResults() {
     clearInterval(timer);
+    progressBarFill.style.transform = 'scaleX(0)';
     timerElement.innerHTML = '';
     questionContainer.style.display = 'none';
     resultContainer.style.display = 'block';

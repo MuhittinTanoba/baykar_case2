@@ -43,6 +43,7 @@ body {
 #timer {
     font-size: 24px;
     font-weight: bold;
+    text-align: right;
 }
 
 #result-container {
@@ -61,4 +62,23 @@ table, th, td {
 th, td {
     padding: 10px;
     text-align: left;
+}
+
+
+#progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+#progress-bar-fill {
+    height: 100%;
+    background-color: #76c7c0;
+    width: 100%;
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 1s linear;
 }
